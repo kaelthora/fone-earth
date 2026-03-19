@@ -1,0 +1,58 @@
+---
+// Theme toggle script component - handles theme switching logic
+---
+
+<script is:inline>
+  // Theme management
+  const THEME_KEY = 'fone-theme';
+  
+  function getStoredTheme() {
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem(THEME_KEY);
+    }
+    return null;
+  }
+
+  function setTheme(theme) {
+    const body = document.body;
+    const sunIcon = document.getElementById('sun-icon');
+    const moonIcon = document.getElementById('moon-icon');
+
+    if (theme === 'light') {
+      body.classList.add('light');
+      sunIcon?.classList.add('hidden');
+      moonIcon?.classList.remove('hidden');
+    } else {
+      body.classList.remove('light');
+      sunIcon?.classList.remove('hidden');
+      moonIcon?.classList.add('hidden');
+    }
+
+    localStorage.setItem(THEME_KEY, theme);
+  }
+
+  function toggleTheme() {
+    const currentTheme = document.body.classList.contains('light') ? 'light' : 'dark';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+  }
+
+  // Initialize theme on page load
+  document.addEventListener('DOMContentLoaded', () => {
+    const storedTheme = getStoredTheme();
+    // Default to dark theme
+    setTheme(storedTheme || 'dark');
+
+    // Attach toggle listener
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle?.addEventListener('click', toggleTheme);
+  });
+
+  // Handle theme on initial load (before DOMContentLoaded for faster response)
+  (function() {
+    const storedTheme = getStoredTheme();
+    if (storedTheme === 'light') {
+      document.body.classList.add('light');
+    }
+  })();
+</script>

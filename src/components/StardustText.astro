@@ -1,0 +1,49 @@
+---
+interface Props {
+  text?: string;
+}
+const { text = "The one and only R.U.L.E : Respect, Universal Love and Equity" } = Astro.props;
+const wrapperId = Astro.generateId?.() ?? `stardust-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div id={wrapperId} class="stardust-wrapper">
+  <canvas class="stardust-canvas" aria-hidden="true"></canvas>
+  <div class="stardust-text" aria-hidden="false">{text}</div>
+</div>
+
+<style>
+  .stardust-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 4em;
+    margin: 1rem 0;
+  }
+  .stardust-canvas {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  .stardust-text {
+    position: relative;
+    z-index: 1;
+    opacity: 0;
+    font-size: clamp(18px, 2vw, 28px);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #D4AF37;
+    font-weight: 500;
+    max-width: 90%;
+  }
+</style>
+
+<script define:vars={{ wrapperId }} client:load>
+  import { initStardust } from '../scripts/stardust.js';
+  const wrapper = document.getElementById(wrapperId);
+  if (wrapper) initStardust(wrapper);
+</script>

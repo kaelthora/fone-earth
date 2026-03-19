@@ -1,0 +1,102 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  currentPage?: string;
+  ogImage?: string;
+}
+
+const { 
+  title, 
+  description = 'FONE - Building the future of human connection through technology.',
+  currentPage = '',
+  ogImage = '/og-image.jpg'
+} = Astro.props;
+
+const siteTitle = title === 'Home' ? 'FONE' : `${title} | FONE`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    
+    <!-- SEO Meta Tags -->
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="FONE" />
+    <link rel="canonical" href={Astro.url.href} />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={siteTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:site_name" content="FONE" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={siteTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    
+    <title>{siteTitle}</title>
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  </head>
+  <body class:list={['min-h-screen', 'flex', 'flex-col', currentPage === '/community' && 'community-page']}>
+    <div class="cosmic-background" aria-hidden="true"></div>
+    <div class="site-content">
+      <Header currentPage={currentPage} />
+      <main class:list={[currentPage === '/community' ? 'community-main-portals' : 'flex-grow']}>
+        <slot />
+      </main>
+      <Footer />
+    </div>
+    <script>
+      const root = document.documentElement;
+
+      let beat = 6;
+      function updateBeat() {
+        root.style.setProperty("--cosmic-beat-duration", beat + "s");
+      }
+
+      updateBeat();
+
+      setInterval(() => {
+        beat = 5.5 + Math.random() * 1.5;
+        updateBeat();
+      }, 8000);
+
+      let lastMove = Date.now();
+      document.addEventListener("mousemove", () => {
+        lastMove = Date.now();
+      });
+
+      setInterval(() => {
+        const idle = Date.now() - lastMove;
+        if (idle > 5000) {
+          root.style.setProperty("--cosmic-intensity", "1.2");
+        } else {
+          root.style.setProperty("--cosmic-intensity", "1");
+        }
+      }, 2000);
+    </script>
+  </body>
+</html>

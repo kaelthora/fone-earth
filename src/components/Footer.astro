@@ -1,0 +1,88 @@
+---
+const currentYear = new Date().getFullYear();
+
+const footerLinks = {
+  navigation: [
+    { href: '/', label: 'Home' },
+    { href: '/mission', label: 'Missions' },
+    { href: '/community', label: 'Community' },
+    { href: '/explore', label: 'Explore' },
+    { href: '/about', label: 'About' },
+    { href: '/contact', label: 'Contact' },
+  ],
+  social: [
+    { href: 'https://www.facebook.com/groups/1389411422834662', label: 'Facebook' },
+    { href: 'https://t.me/+q4DyQMs7LJkxNjM8', label: 'Telegram' },
+  ],
+};
+---
+
+<footer class="border-t border-dark-700 light:border-gray-200 transition-colors duration-300">
+  <div class="container-custom section-padding">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+      <!-- Brand -->
+      <div class="lg:col-span-2">
+        <a href="/" class="text-3xl font-display font-bold text-accent">
+          FONE
+        </a>
+        <p class="mt-4 text-muted max-w-md leading-relaxed">
+          A foundation for a reunited humanity.<br />
+          Guided by Respect, Universal Love and Equity.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wider mb-6 text-gray-300 light:text-gray-800">
+          Navigation
+        </h4>
+        <ul class="space-y-3">
+          {footerLinks.navigation.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-muted hover:text-accent transition-colors duration-300"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Social -->
+      <div>
+        <h4 class="text-sm font-semibold uppercase tracking-wider mb-6 text-gray-300 light:text-gray-800">
+          Connect
+        </h4>
+        <ul class="space-y-3">
+          {footerLinks.social.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="text-muted hover:text-accent transition-colors duration-300"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="mt-16 pt-8 border-t border-dark-700 light:border-gray-200 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-sm text-muted">
+        &copy; 2026 FONE. All rights reserved.
+      </p>
+      <div class="flex gap-6">
+        <a href="/privacy" class="text-sm text-muted hover:text-accent transition-colors">
+          Privacy Policy
+        </a>
+        <a href="/terms" class="text-sm text-muted hover:text-accent transition-colors">
+          Terms of Service
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>

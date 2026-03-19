@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Community"
+  description="Those who feel the call. Guardians, builders, and servant hearts — join the circle building the future missions of FONE."
+  currentPage="/community"
+>
+  <div class="community-portals-wrap community-page">
+    <div class="portal-wrapper">
+      <!-- 1. CALL -->
+      <section class="portal-section section-call call-section community-hero community-section" id="call" data-portal>
+      <div class="portal-content community-content">
+        <h2 class="portal-title community-title">THOSE WHO FEEL THE CALL</h2>
+        <p class="portal-text">
+          Some will see nothing.<br />
+          Some will feel everything.
+        </p>
+        <p class="portal-text">
+          If the signal reached you,<br />
+          you already know why you are here.
+        </p>
+        <a href="/contact" class="portal-btn">Follow the Signal</a>
+      </div>
+    </section>
+
+    <!-- 2. GUARDIANS -->
+    <section class="portal-section section-guardians guardians-portal guardians-section community-guardians community-section" id="guardians" data-portal>
+      <div class="portal-content community-guardians-content">
+        <div class="guardian-eyes" aria-hidden="true"><span></span><span></span></div>
+        <h2 class="portal-title community-title">GUARDIANS</h2>
+        <p class="portal-text">
+          Vigilant guardians protecting the purity<br />
+          of this channel against any deviation.
+        </p>
+        <p class="portal-text">
+          The passage remains open,<br />
+          but never unprotected.
+        </p>
+        <a href="/contact" class="portal-btn">Become a Guardian</a>
+      </div>
+    </section>
+
+    <!-- 3. BUILDERS -->
+    <section class="portal-section section-builders community-section" id="builders" data-portal>
+      <div class="portal-content">
+        <h2 class="portal-title community-title">BUILDERS</h2>
+        <p class="portal-text">
+          Builders capable of wielding technology<br />
+          as an extension of their soul.
+        </p>
+        <p class="portal-text">
+          Together we are not constructing systems.
+        </p>
+        <p class="portal-text">
+          We are laying the foundations<br />
+          of a new world.
+        </p>
+        <a href="/contact" class="portal-btn">Build With Us</a>
+      </div>
+    </section>
+
+    <!-- 4. SERVANT HEARTS -->
+    <section class="portal-section section-hearts servant-section community-section" id="hearts" data-portal>
+      <div class="portal-content">
+        <h2 class="portal-title community-title">SERVANT HEARTS</h2>
+        <p class="portal-text">
+          Hearts ready to serve future generations<br />
+          without compromise.
+        </p>
+        <p class="portal-text">
+          No hierarchy.<br />
+          No domination.
+        </p>
+        <p class="portal-text">
+          Only humanity remembering itself.
+        </p>
+        <a href="/contact" class="portal-btn">Join the Circle</a>
+      </div>
+    </section>
+    </div>
+  </div>
+
+  <audio id="cosmicAmbience" loop>
+    <source src="/audio/cosmic-ambience.mp3" type="audio/mpeg" />
+  </audio>
+
+  <script>
+    (function () {
+      const ambience = document.getElementById("cosmicAmbience");
+      if (ambience) {
+        function startCosmicSound() {
+          ambience.volume = 0.15;
+          ambience.play().catch(() => {});
+        }
+        window.addEventListener("scroll", startCosmicSound, { once: true, passive: true });
+        window.addEventListener("click", startCosmicSound, { once: true });
+        window.addEventListener("keydown", startCosmicSound, { once: true });
+      }
+
+      const portalWrapper = document.querySelector('.portal-wrapper');
+      const sections = document.querySelectorAll('[data-portal]');
+      if (!portalWrapper || !sections.length) return;
+      const isMobile = window.innerWidth < 768;
+      const isTablet = window.innerWidth >= 769 && window.innerWidth <= 1024;
+      if (isMobile) {
+        portalWrapper.style.height = 'auto';
+        portalWrapper.style.overflowY = 'visible';
+        portalWrapper.style.overflowX = 'hidden';
+      }
+      const observerOptions = {
+        root: (isMobile || isTablet) ? null : portalWrapper,
+        threshold: 0.1,
+        rootMargin: '0px'
+      };
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            } else {
+              entry.target.classList.remove('active');
+            }
+          });
+        },
+        observerOptions
+      );
+      sections.forEach((el) => observer.observe(el));
+    })();
+  </script>
+</BaseLayout>

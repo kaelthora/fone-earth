@@ -1,0 +1,29 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+}
+
+const { title, subtitle, align = 'center' } = Astro.props;
+
+const alignClasses = {
+  left: 'text-left',
+  center: 'text-center mx-auto',
+};
+---
+
+<section class="pt-32 md:pt-40 pb-16 md:pb-24">
+  <div class="container-custom">
+    <div class={`max-w-4xl ${alignClasses[align]}`}>
+      <h1 class="heading-xl mb-6 animate-fade-in">
+        <span class="gradient-text">{title}</span>
+      </h1>
+      {subtitle && (
+        <p class="text-body text-muted max-w-2xl animate-slide-up animate-delay-100 mx-auto">
+          {subtitle}
+        </p>
+      )}
+    </div>
+  </div>
+</section>

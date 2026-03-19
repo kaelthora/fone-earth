@@ -1,0 +1,235 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Explore"
+  description="The Inner Compass — A calm sanctuary where guidance awakens. Begin a dialogue with FONE-AI."
+  currentPage="/explore"
+>
+  <div id="ai-transition" aria-hidden="true">
+    <div class="ai-sphere"></div>
+  </div>
+  <article class="explore-page">
+    <div class="explore-breath" aria-hidden="true"></div>
+    <!-- Section 1 – Sanctuary -->
+    <section class="explore-sanctuary section-compass">
+      <div class="absorb-layer" aria-hidden="true">
+        <div class="core"></div>
+        <div class="gravity-core"></div>
+      </div>
+      <div class="explore-sanctuary-inner">
+        <div class="inner-compass-block content-center">
+          <h2 class="explore-title">The Inner Compass</h2>
+
+          <p class="anchor explore-sanctuary-text">The sanctuary is your home.</p>
+          <p class="explore-sanctuary-text">Guidance does not come from outside.</p>
+          <p class="explore-sanctuary-text">It awakens in the quiet space</p>
+          <p class="explore-sanctuary-text">where you allow yourself to listen.</p>
+
+          <div class="explore-candle-core" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2 – FONE-AI Presence -->
+    <section class="explore-presence section-presence">
+      <div class="presence-video-wrapper" aria-hidden="true">
+        <video
+          class="presence-bg-video presence-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          aria-hidden="true"
+        >
+          <source src="/fog-incense.mp4" type="video/mp4" />
+        </video>
+
+        <video
+          class="presence-bg-video presence-bg-video--alt presence-video"
+          autoplay
+          muted
+          loop
+          playsinline
+          aria-hidden="true"
+        >
+          <source src="/fog-incense.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      <div class="presence-section">
+        <div class="explore-fog-presence" aria-hidden="true"></div>
+
+        <div class="content-center section-presence-inner">
+          <h2 class="explore-presence-title">A Presence That Listens</h2>
+          <div class="explore-presence-text text-block">
+            <p>
+              FONE-AI is not here to replace your intuition.
+            </p>
+            <p>
+              It exists as a mirror.
+            </p>
+            <p>
+              A space where questions may unfold<br />
+              and answers can emerge<br />
+              with clarity and compassion.
+            </p>
+          </div>
+          <a
+            href="https://fone-ai.vercel.app"
+            class="explore-cta enter-ai cta-button"
+          >
+            Begin a Dialogue
+          </a>
+          <a href="/explore/guidance" class="explore-guidance-link how-link">
+            How does this work?
+          </a>
+        </div>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<script>
+  (function () {
+    const button = document.querySelector(".enter-ai");
+    const transition = document.getElementById("ai-transition");
+    if (!button || !transition) return;
+
+    button.addEventListener("click", (e) => {
+      e.preventDefault();
+      transition.classList.add("active");
+      setTimeout(() => {
+        window.location.href = "https://fone-ai.vercel.app";
+      }, 1400);
+    });
+  })();
+</script>
+
+<script>
+  (function () {
+    const candle = document.querySelector(".explore-candle-core");
+    if (!(candle instanceof HTMLElement)) return;
+
+    let scrollTimeout;
+    window.addEventListener(
+      "scroll",
+      () => {
+        candle.style.animationDuration = "12s";
+        clearTimeout(scrollTimeout);
+        scrollTimeout = window.setTimeout(() => {
+          candle.style.animationDuration = "16s";
+        }, 800);
+      },
+      { passive: true }
+    );
+  })();
+</script>
+
+<script>
+  (function () {
+    const rate = 0.35;
+
+    const videos = Array.from(
+      document.querySelectorAll(".presence-bg-video")
+    ).filter((v) => v instanceof HTMLVideoElement);
+
+    if (!videos.length) return;
+
+    const applyRate = (video) => {
+      try {
+        video.playbackRate = rate;
+      } catch (e) {
+        // Ignore silently if playbackRate isn't available yet.
+      }
+    };
+
+    // Need 2 layers to mask loop restart; if only 1 exists, just slow it down.
+    const [a, b] = videos;
+    if (!b) {
+      for (const v of videos) {
+        if (v.readyState >= 1) applyRate(v);
+        else v.addEventListener("loadedmetadata", () => applyRate(v), { once: true });
+      }
+      return;
+    }
+
+    const setOpacity = (video, value) => {
+      video.style.opacity = String(value);
+    };
+
+    const fadeTo = (active) => {
+      setOpacity(a, active === a ? 0.25 : 0);
+      setOpacity(b, active === b ? 0.25 : 0);
+    };
+
+    const THRESHOLD_SECONDS = 0.25; // switch slightly before the loop point
+    let switchedToB = false;
+
+    const startCrossfade = () => {
+      // Stagger the phase so one layer is always mid-play when the other loops.
+      try {
+        if (b.duration && Number.isFinite(b.duration)) {
+          b.currentTime = Math.max(0, b.duration * 0.5);
+        }
+      } catch (e) {
+        // Ignore if seeking is blocked.
+      }
+
+      // Initial state: show layer A, hide layer B.
+      fadeTo(a);
+
+      // Ensure both are playing (autoplay should already handle this).
+      a.play().catch(() => {});
+      b.play().catch(() => {});
+
+      window.setInterval(() => {
+        if (!a.duration || !b.duration) return;
+
+        const aRemaining = a.duration - a.currentTime;
+        const bRemaining = b.duration - b.currentTime;
+
+        // If the active layer is about to hit the loop boundary, switch.
+        if (!switchedToB && aRemaining < THRESHOLD_SECONDS) {
+          switchedToB = true;
+          fadeTo(b);
+        } else if (switchedToB && bRemaining < THRESHOLD_SECONDS) {
+          switchedToB = false;
+          fadeTo(a);
+        }
+      }, 160);
+    };
+
+    for (const v of videos) {
+      if (v.readyState >= 1) applyRate(v);
+      else v.addEventListener("loadedmetadata", () => applyRate(v), { once: true });
+    }
+
+    // Wait for both metadata so durations are known.
+    const readyA = a.readyState >= 1;
+    const readyB = b.readyState >= 1;
+    if (readyA && readyB) startCrossfade();
+    else {
+      let count = 0;
+      const onMeta = () => {
+        count += 1;
+        if (count >= 2) startCrossfade();
+      };
+      a.addEventListener("loadedmetadata", onMeta, { once: true });
+      b.addEventListener("loadedmetadata", onMeta, { once: true });
+    }
+  })();
+</script>
+
+<script>
+  (function () {
+    const isMobile = window.matchMedia("(max-width: 768px)").matches;
+    if (!isMobile) return;
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        document.body.classList.add("presence-reveal");
+      }, 1500);
+    });
+  })();
+</script>

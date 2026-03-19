@@ -1,0 +1,368 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+
+const ruleTitle = 'THE ONE AND ONLY RULE';
+const ruleLine1 = 'Respect.';
+const ruleLine2 = 'Universal Love.';
+const ruleLine3 = 'Equity.';
+---
+
+<BaseLayout 
+  title="Home" 
+  description="FONE - Building the future of human connection through technology. A platform designed for meaningful interactions in the modern age."
+  currentPage="/"
+>
+  <div id="intro-gate">
+    <p>You are not here by accident.</p>
+  </div>
+
+  <!-- Hero Section – monolith weld + mist + center -->
+  <section class="hero-sanctuary relative flex flex-col items-center justify-center overflow-hidden pt-24 pb-16 md:pb-24 lg:pb-32">
+    <!-- Single starfield layer removed to simplify hero background -->
+
+    <!-- Breathing mist – golden-tinted kinetic texture (behind content) -->
+    <div class="hero-mist absolute inset-0 z-[1] pointer-events-none" aria-hidden="true"></div>
+
+    <!-- Film grain overlay – living texture -->
+    <div class="hero-grain absolute inset-0 z-[1] pointer-events-none" aria-hidden="true"></div>
+
+    <!-- Dark gradient overlay - top fade for header blend -->
+    <div class="absolute inset-x-0 top-0 h-28 z-[1] bg-gradient-to-b from-black/40 to-transparent pointer-events-none"></div>
+
+    <!-- Vignette effect -->
+    <div class="hero-vignette absolute inset-0 z-[1] pointer-events-none"></div>
+
+    <!-- Subtle cosmic atmosphere – very light golden hints -->
+    <div class="hero-atmosphere absolute inset-0 z-[1] pointer-events-none"></div>
+
+    <!-- Golden glow – energy source behind logo -->
+    <div class="hero-glow-wrap absolute inset-0 flex items-center justify-center z-[1] pointer-events-none">
+      <div class="hero-glow-orb rounded-full"></div>
+    </div>
+
+    <!-- Cosmic monument: breathing halo behind logo (12s pulse) -->
+    <div class="hero-logo-halo absolute inset-0 flex items-center justify-center z-[1] pointer-events-none" aria-hidden="true"></div>
+
+    <!-- Canvas starfield removed (no blinking stars) -->
+
+    <!-- Cinematic lens flare – horizontal, center -->
+    <div class="hero-lens-flare absolute inset-0 z-[1] pointer-events-none" aria-hidden="true"></div>
+
+    <!-- HERO content -->
+    <div class="hero-content hero-content-inner relative flex flex-col items-center text-center w-full max-w-6xl mx-auto px-6 pt-4 md:pt-6">
+
+      <!-- Monolith: logo + headline welded -->
+      <div class="hero-monolith w-full flex flex-col items-center max-w-3xl mx-auto">
+      <!-- Infinity Logo – remonté de 15%, plus d’espace en bas -->
+      <div class="hero-logo-block hero-logo-glow-wrap hero-logo-raised relative mt-0 w-full flex justify-center items-center" style="min-width: 0;">
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div class="w-[480px] h-[320px] md:w-[720px] md:h-[480px] lg:w-[900px] lg:h-[600px] rounded-full bg-gold-600/8 blur-[32px] md:blur-[40px] lg:blur-[48px]"></div>
+        </div>
+        <img 
+          src="/hero-infinity.png"
+          alt="FONE Infinity Symbol"
+          style="width: 1000px; max-width: 100%; height: auto; display: block;"
+          class="hero-logo-img relative select-none hero-logo-pulse"
+          draggable="false"
+        />
+      </div>
+
+      <!-- Hero copy: plus d’espace sous le logo -->
+        <div class="hero-headline-block w-full">
+          <h1 class="hero-heading text-white/95 light:text-gray-800 text-[1.725rem] sm:text-[2.16rem] md:text-[2.6rem] lg:text-[3.45rem] mb-0 hero-text-shadow hero-headline-glow">
+            Building the future.
+          </h1>
+          <p class="hero-subheading hero-headline-line2 text-white/95 light:text-gray-800 text-[1.725rem] sm:text-[2.16rem] md:text-[2.6rem] lg:text-[3.45rem] mb-0 hero-text-shadow hero-headline-glow">
+            For a reunited humanity.
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-copy hero-copy-tight w-full max-w-3xl mx-auto mb-0">
+        <p class="hero-subheading hero-mission-intro text-white/85 light:text-gray-700 font-medium leading-relaxed hero-text-shadow mb-0">
+          Our mission is simple:
+        </p>
+        <p class="hero-subheading hero-mission-intro text-white/85 light:text-gray-700 font-medium leading-relaxed hero-text-shadow mb-0">
+          Remember who we are.<br />And build a New Earth.
+        </p>
+        <!-- RULE – each line with stardust animation -->
+        <div class="hero-rule-block text-center mt-2 mb-0">
+          <p class="hero-rule-title text-gold-400/95 light:text-amber-800" aria-label={ruleTitle}>
+            {ruleTitle.split('').map((char, i) => (
+              <span class="stardust-letter" style={`animation-delay: ${i * 0.04}s`}>{char === ' ' ? '\u00A0' : char}</span>
+            ))}
+          </p>
+          <p class="hero-rule-line2 text-gold-400/95 light:text-amber-800" aria-label={ruleLine1}>
+            {ruleLine1.split('').map((char, i) => (
+              <span class="stardust-letter" style={`animation-delay: ${0.5 + i * 0.04}s`}>{char === ' ' ? '\u00A0' : char}</span>
+            ))}
+          </p>
+          <p class="hero-rule-line2 text-gold-400/95 light:text-amber-800" aria-label={ruleLine2}>
+            {ruleLine2.split('').map((char, i) => (
+              <span class="stardust-letter" style={`animation-delay: ${0.9 + i * 0.04}s`}>{char === ' ' ? '\u00A0' : char}</span>
+            ))}
+          </p>
+          <p class="hero-rule-line2 text-gold-400/95 light:text-amber-800" aria-label={ruleLine3}>
+            {ruleLine3.split('').map((char, i) => (
+              <span class="stardust-letter" style={`animation-delay: ${1.3 + i * 0.04}s`}>{char === ' ' ? '\u00A0' : char}</span>
+            ))}
+          </p>
+        </div>
+      </div>
+
+      <!-- Buttons: directly below RULE, reduced spacing -->
+      <div class="hero-buttons flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center w-full sm:w-auto mt-0">
+        <a href="/mission"
+          class="hero-btn-primary group relative overflow-hidden px-10 sm:px-12 py-4 sm:py-5 rounded-full font-semibold text-sm sm:text-base text-dark-900 cursor-pointer">
+          <span class="relative z-10">ENTER THE FOUNDATION</span>
+        </a>
+        <a href="/community"
+          class="hero-btn-secondary group relative overflow-hidden px-10 sm:px-12 py-4 sm:py-5 rounded-full font-semibold text-sm sm:text-base cursor-pointer">
+          <span class="relative z-10">BECOME A BUILDER</span>
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Soft cosmic fade – descend from space into granite -->
+    <div class="hero-fade" aria-hidden="true"></div>
+  </section>
+
+  <!-- Video fallback script -->
+  <script>
+    const video = document.getElementById('hero-video') as HTMLVideoElement;
+    if (video) {
+      video.addEventListener('error', () => {
+        // If video fails to load, show fallback image via poster
+        video.style.display = 'none';
+        const container = video.parentElement;
+        if (container) {
+          const fallback = document.createElement('img');
+          fallback.src = '/hero-static.jpg';
+          fallback.alt = 'FONE Hero';
+          fallback.className = 'hero-video w-full h-full';
+          container.insertBefore(fallback, container.firstChild);
+        }
+      });
+    }
+  </script>
+
+  <!-- What is FONE? – The Heart of the Sanctuary (ethereal, no cards) -->
+  <div class="home-page-sections">
+  <Section id="features" class="sanctuary-section what-is-fone">
+    <div class="sanctuary-inner max-w-4xl mx-auto">
+      <div class="sanctuary-head">
+        <h2 class="heading-lg mb-6">
+          What is <span class="text-accent">FONE</span>?
+        </h2>
+      </div>
+
+      <div class="sanctuary-manifesto">
+      <p class="reveal-text">
+        FONE is not a religion.<br><span class="manifesto-key-line">The only God here is Love.</span>
+      </p>
+      <p class="reveal-text">
+        Love lives in all of us.<br>This sanctuary exists to help humanity remember it.
+      </p>
+      <p class="reveal-text">
+        This is a once-in-a-lifetime mission:<br>to restore faith in humanity and build a better future.
+      </p>
+      <p class="reveal-text">
+        If you feel the call, join us.
+      </p>
+      <p class="reveal-text">
+        Whoever you are.<br>Whatever you bring.<br><br>You belong.
+      </p>
+    </div>
+
+    <div class="sanctuary-pillars cards-container">
+      <a href="/explore" class="card-link">
+        <div class="sanctuary-pillar card sanctuary-pillar-black">
+          <div class="card-light-sweep" aria-hidden="true"></div>
+          <img src="/guidance.jpg" alt="" class="card-symbol" loading="lazy" decoding="async" aria-hidden="true" />
+          <h3 class="sanctuary-pillar-title reveal-text">Guidance without Limits</h3>
+          <div class="sanctuary-pillar-body reveal-text">
+            <p>A private space to explore the depths of consciousness.</p>
+            <p>This is not a temple, a dogma, or a new religion — it is a simple invitation.</p>
+            <p>If you feel the call, the bridge is open.<br>If not, the Sanctuary remains your home.</p>
+          </div>
+          <span class="gold-button">Enter the Channel</span>
+        </div>
+      </a>
+      <a href="/community" class="card-link">
+        <div class="sanctuary-pillar card sanctuary-pillar-gold">
+          <div class="card-light-sweep" aria-hidden="true"></div>
+          <img src="/builders.jpg" alt="" class="card-symbol" loading="lazy" decoding="async" aria-hidden="true" />
+          <h3 class="sanctuary-pillar-title reveal-text">Call to Builders</h3>
+          <div class="sanctuary-pillar-body reveal-text">
+            <p>We are not looking for employees.<br>We are looking for resonance.</p>
+            <p>This is a rallying of frequencies for those who seek to belong and to build.</p>
+            <p>Your skills are tools.<br>Your heart is the foundation.</p>
+          </div>
+          <span class="gold-button">Join the Builders</span>
+        </div>
+      </a>
+      <a href="/mission" class="card-link">
+        <div class="sanctuary-pillar card sanctuary-pillar-black">
+          <div class="card-light-sweep" aria-hidden="true"></div>
+          <img src="/missions.jpg" alt="" class="card-symbol" loading="lazy" decoding="async" aria-hidden="true" />
+          <h3 class="sanctuary-pillar-title reveal-text">Missions</h3>
+          <div class="sanctuary-pillar-body reveal-text">
+            <p>To restore faith in humanity.</p>
+            <p>To build sanctuaries for all — not the few.</p>
+            <p>To honor the most sacred vow:<br>Protect the children.</p>
+            <p>We don't just dream of a new world.<br>We anchor it.</p>
+          </div>
+          <span class="gold-button">Discover the Missions</span>
+        </div>
+      </a>
+    </div>
+    </div>
+  </Section>
+
+  <!-- Builders / Foundation – cosmic transition section -->
+  <section class="builders-section">
+    <div class="builders-overlay"></div>
+    <div class="builders-content">
+      <h2 class="builders-title">
+        The Foundation Has Been Placed
+      </h2>
+      <p class="builders-text">
+        A new world is not imagined.<br>
+        It is built.<br><br>
+
+        Those who feel the call<br>
+        are already part of it.
+      </p>
+      <a href="/community" class="builders-button cta-button">
+        Enter the Builders Circle
+      </a>
+    </div>
+  </section>
+  </div>
+
+  <style>
+    .home-page-sections section {
+      padding-top: 120px;
+      padding-bottom: 120px;
+    }
+
+    #intro-gate {
+      position: fixed;
+      inset: 0;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 2.4s cubic-bezier(0.22, 1, 0.36, 1);
+      pointer-events: auto;
+    }
+    #intro-gate.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    #intro-gate p {
+      color: #ffffff;
+      font-size: 28px;
+      letter-spacing: 0.08em;
+      opacity: 0;
+      animation: introText 1.6s ease forwards;
+    }
+    @keyframes introText {
+      0% { opacity: 0; }
+      50% { opacity: 0; }
+      80% { opacity: 0.8; }
+      100% { opacity: 1; }
+    }
+
+    @media (max-width: 768px) and (orientation: portrait) {
+      #intro-gate p {
+        margin: 0;
+        text-align: center;
+        padding: 0 20px;
+        max-width: 22ch;
+      }
+    }
+  </style>
+
+  <script>
+    const featuresSection = document.getElementById('features');
+    if (featuresSection) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('features-revealed', 'visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -60px 0px' }
+      );
+      observer.observe(featuresSection);
+    }
+  </script>
+
+  <script>
+    setTimeout(() => {
+      const intro = document.getElementById("intro-gate");
+      if (intro) intro.classList.add('hidden');
+    }, 2600);
+  </script>
+
+  <script>
+    setTimeout(() => {
+      const intro = document.getElementById("intro-gate");
+      if (intro) intro.remove();
+    }, 4200);
+  </script>
+
+  <script>
+    (function () {
+      let scrollTimeout;
+      const section = document.querySelector('.builders-section');
+      if (!section) return;
+      window.addEventListener('scroll', () => {
+        section.classList.add('scrolling');
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          section.classList.remove('scrolling');
+        }, 150);
+      }, { passive: true });
+    })();
+  </script>
+
+  <script>
+    function runRuleAnimation() {
+      const letters = document.querySelectorAll(
+        ".hero-rule-title .stardust-letter, .hero-rule-line2 .stardust-letter"
+      );
+
+      // RESET
+      letters.forEach(el => {
+        el.classList.remove("active");
+        el.style.opacity = "0";
+      });
+
+      // FORCE reflow (CRITICAL)
+      void document.body.offsetHeight;
+
+      // RE-ANIMATE
+      letters.forEach((el, i) => {
+        setTimeout(() => {
+          el.classList.add("active");
+        }, i * 40);
+      });
+    }
+
+    window.addEventListener("load", () => {
+      runRuleAnimation();
+      setInterval(runRuleAnimation, 5000);
+    });
+  </script>
+
+  <!-- Starfield animation removed: hero now relies on mist & glow only -->
+</BaseLayout>

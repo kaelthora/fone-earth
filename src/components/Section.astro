@@ -1,0 +1,26 @@
+---
+interface Props {
+  id?: string;
+  class?: string;
+  padding?: 'sm' | 'md' | 'lg';
+}
+
+const { id, class: className = '', padding = 'md' } = Astro.props;
+
+const paddingClasses = {
+  sm: 'py-12 md:py-16',
+  md: 'py-20 md:py-28 lg:py-32',
+  lg: 'py-28 md:py-36 lg:py-44',
+};
+---
+
+<section id={id} class={`${paddingClasses[padding]} ${className}`}>
+  {id === 'features' && (
+    <div class="features-light-beam" aria-hidden="true">
+      <div class="features-light-beam-sweep"></div>
+    </div>
+  )}
+  <div class="container-custom">
+    <slot />
+  </div>
+</section>

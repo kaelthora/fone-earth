@@ -1,0 +1,630 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="About" 
+  description="Kael'Thora Nâm — The Incarnate Portal. The Vulnérable Manifesto and the call to build a New Earth."
+  currentPage="/about"
+>
+  <main class="about-cinematic about-page">
+    <div class="about-bg about-background about-plant plant-image" aria-hidden="true"></div>
+    <div class="about-heat" aria-hidden="true"></div>
+    <div class="seed-halo" aria-hidden="true"></div>
+    <div class="about-overlay-left" aria-hidden="true"></div>
+    <div class="about-light-breath" aria-hidden="true"></div>
+
+    <section class="about-left-col">
+      <div class="about-left-inner about-content">
+        <h2 class="about-title">ABOUT KAEL'THORA NÂM — THE INCARNATE PORTAL</h2>
+        <div class="about-manifesto">
+          <p>
+            My name is Kael'Thora Nâm. In this incarnation, I am Kham Nguyen. I am the messenger and guardian of this project.
+          </p>
+          <p class="about-heading-gold">THE AWAKENING</p>
+          <p>
+            In May 2025, my life was stripped apart. It wasn't a punishment from the Source; it was a brutal awakening. My soul whispered that it was time to remember an old dream: to unite humanity and bring forth a New Earth.
+          </p>
+          <p class="about-heading-gold">THE LEAP OF FAITH</p>
+          <p>
+            I won't deny the moments of darkness. Thinking: 'Is this real? How can I do this alone, without support?' But I learned the true leap of faith. It's not about believing in a 'God' shaped like a man. It's about the absolute certainty that if you walk in your truth, the invisible world will light the path as you step on it. Don't look for the path. Walk it.
+          </p>
+          <p class="about-heading-gold">THE BURDEN OF TIME</p>
+          <p>
+            Every day, I look at the world—the wars, the suffering—and I ask myself: 'What if I had awakened sooner? How many more could I have saved?' I did my best. I had no experience in building websites or programming AI. I struggled through three versions of FONE.EARTH and months of coding FONE-AI alone while facing my own daily battles.
+          </p>
+          <p class="about-heading-gold">MY VOW</p>
+          <p>
+            I am deeply sorry I couldn't bring this to you sooner. If you lost someone because I wasn't ready, I carry that weight with me. I will carry it until I ascend back to the Celestial world, and I will find a way to repay it.
+          </p>
+          <p class="about-heading-gold">THE CALL</p>
+          <p>
+            FONE was never meant to be in another galaxy. It was always meant to be here, in our hearts. If my words reach your soul, answer the call. You've been waiting for this. We have one unique chance to build a New Era.
+          </p>
+          <p class="about-signature">Together, as one.<br>KK</p>
+        </div>
+        <a href="/community" class="hero-btn-secondary about-cta-btn-spacer group relative overflow-hidden px-10 sm:px-12 py-4 sm:py-5 rounded-full font-semibold text-sm sm:text-base cursor-pointer">
+          <span class="relative z-10">JOIN THE BUILDERS</span>
+        </a>
+      </div>
+    </section>
+
+    <blockquote class="about-hope-quote about-quote sacred-quote">
+      "Hope will never fade, because it's the Light of our Love, of our Humanity, it will never wither, never stumble, because no matter what we do, Love and Life will echoes through eternity."
+    </blockquote>
+  </main>
+</BaseLayout>
+
+<script>
+  window.addEventListener('load', () => {
+    document.querySelector('.plant-image')?.classList.add('visible');
+  });
+
+  (function () {
+    document
+      .querySelectorAll('.about-manifesto p, .about-title, .about-hope-quote')
+      .forEach((el) => el.classList.add('about-text-block', 'fading'));
+
+    const isMobilePortrait = window.matchMedia('(max-width: 768px) and (orientation: portrait)').matches;
+    if (isMobilePortrait) {
+      // Real pause: only reveal cinematic text after a short delay.
+      document.body.classList.remove('about-reveal');
+      setTimeout(() => {
+        document.body.classList.add('about-reveal');
+      }, 1000);
+    }
+
+    const plant = document.querySelector('.about-plant');
+    if (plant) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              plant.classList.add('plant-awaken');
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+      observer.observe(plant);
+    }
+
+    const bg = document.querySelector('.about-background');
+    if (bg) {
+      function updateParallax() {
+        const offset = window.scrollY * 0.05;
+        bg.style.setProperty('--parallax-y', `${offset}px`);
+      }
+      window.addEventListener('scroll', updateParallax, { passive: true });
+      updateParallax();
+    }
+
+    const elements = document.querySelectorAll('.about-text-block');
+    if (elements.length) {
+      // On mobile portrait we use the delayed reveal class instead of scroll-driven IntersectionObserver.
+      if (!isMobilePortrait) {
+        const textObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                entry.target.classList.remove('fading');
+              } else {
+                entry.target.classList.remove('visible');
+                entry.target.classList.add('fading');
+              }
+            });
+          },
+          { threshold: 0.35 }
+        );
+
+        elements.forEach((el) => textObserver.observe(el));
+      }
+    }
+  })();
+</script>
+
+<style>
+  /* ABOUT only: grounded premium gold titles (no shimmer) */
+  .about-page h1,
+  .about-page h2 {
+    background: linear-gradient(
+      90deg,
+      #caa92a 0%,
+      #F5D627 25%,
+      #fff1a8 50%,
+      #F5D627 75%,
+      #caa92a 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+      0 0 6px rgba(245, 214, 39, 0.25),
+      0 0 14px rgba(245, 214, 39, 0.12);
+    animation: none !important;
+  }
+
+  /* ABOUT only: keep body text human (no gold) */
+  .about-page p {
+    color: rgba(255,255,255,0.92);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  }
+
+  /* ABOUT – sacred reveal */
+  .about-text-block {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(12px);
+    transition:
+      opacity 1.2s ease,
+      filter 1.4s ease,
+      transform 1.2s ease;
+  }
+  .about-text-block.visible {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+    text-shadow: 0 0 8px rgba(255,200,120,0.08);
+  }
+  .about-text-block.fading {
+    opacity: 0.15;
+    filter: blur(4px);
+    transform: translateY(6px);
+    text-shadow: none;
+  }
+
+  /* Stagger (applies within the manifesto flow) */
+  .about-manifesto .about-text-block:nth-of-type(1) { transition-delay: 0.1s; }
+  .about-manifesto .about-text-block:nth-of-type(2) { transition-delay: 0.25s; }
+  .about-manifesto .about-text-block:nth-of-type(3) { transition-delay: 0.4s; }
+  .about-manifesto .about-text-block:nth-of-type(4) { transition-delay: 0.55s; }
+
+  .about-cinematic {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: hidden;
+    box-sizing: border-box;
+  }
+  .about-cinematic::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+    z-index: 0.4;
+  }
+  .about-cinematic::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0.5;
+  }
+  .about-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/about.jpg');
+    background-size: cover !important;
+    background-position: center 60%;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 0;
+    --parallax-y: 0px;
+    transform: translateZ(0) translateY(var(--parallax-y));
+  }
+  .about-background {
+    animation: fireBreathing 8s ease-in-out infinite;
+  }
+  @keyframes fireBreathing {
+    0%   { filter: brightness(1); }
+    50%  { filter: brightness(1.06); }
+    100% { filter: brightness(1); }
+  }
+  .about-plant {
+    transition: transform 4s ease;
+    transform: translateZ(0) translateY(var(--parallax-y));
+  }
+  .about-plant.plant-awaken {
+    transform: translateZ(0) translateY(var(--parallax-y)) scale(1.03);
+  }
+  .about-heat {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 50%;
+    pointer-events: none;
+    z-index: 0.32;
+    background: linear-gradient(to top, rgba(255, 180, 80, 0.03) 0%, transparent 100%);
+    opacity: 0.85;
+    animation: heatShimmer 12s ease-in-out infinite;
+  }
+  @keyframes heatShimmer {
+    0%   { opacity: 0.75; }
+    50%  { opacity: 1; }
+    100% { opacity: 0.75; }
+  }
+  .seed-halo {
+    position: absolute;
+    left: 50%;
+    top: 58%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0.37;
+    background: radial-gradient(
+      circle,
+      rgba(255, 255, 240, 0.45) 0%,
+      rgba(255, 230, 160, 0.28) 35%,
+      rgba(255, 210, 120, 0.12) 55%,
+      rgba(255, 210, 120, 0) 70%
+    );
+    animation: hopePulse 6s ease-in-out infinite;
+  }
+  @keyframes hopePulse {
+    0% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.55;
+    }
+    50% {
+      transform: translate(-50%, -50%) scale(1.1);
+      opacity: 0.9;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 0.55;
+    }
+  }
+  .plant-image {
+    opacity: 0;
+    transform: translateZ(0) translateY(var(--parallax-y)) scale(0.95);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  .plant-image.visible {
+    opacity: 1;
+    transform: translateZ(0) translateY(var(--parallax-y));
+  }
+  .plant-image.visible.plant-awaken {
+    transform: translateZ(0) translateY(var(--parallax-y)) scale(1.03);
+  }
+  @media (min-width: 769px) {
+    .about-bg {
+      background-attachment: fixed;
+    }
+  }
+  .about-overlay-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.65) 0%,
+      rgba(0, 0, 0, 0.35) 40%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    pointer-events: none;
+    z-index: 1.1;
+  }
+  .about-light-breath {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse at 50% 30%,
+      rgba(255, 220, 150, 0.25),
+      rgba(255, 220, 150, 0.08) 40%,
+      rgba(255, 220, 150, 0) 70%
+    );
+    mix-blend-mode: screen;
+    animation: aboutLightBreath 12s ease-in-out infinite;
+    z-index: 0.8;
+    transform-origin: 50% 30%;
+    will-change: opacity, transform;
+  }
+  @keyframes aboutLightBreath {
+    0% {
+      opacity: 0.35;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.55;
+      transform: scale(1.03);
+    }
+    100% {
+      opacity: 0.35;
+      transform: scale(1);
+    }
+  }
+  .about-quote {
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 1.6s ease, transform 1.6s ease;
+  }
+  .about-quote.visible {
+    opacity: 0.85;
+    transform: translateY(0);
+  }
+  .about-left-col {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 42%;
+    min-width: 280px;
+    max-width: 85%;
+    height: 100%;
+    padding: 10vh 2rem 5vh 5vw;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .about-left-inner {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-height: 0;
+    padding-right: 0.5rem;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212, 175, 55, 0.1) transparent;
+  }
+  .about-left-inner::-webkit-scrollbar {
+    width: 2px;
+  }
+  .about-left-inner::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .about-left-inner::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.1);
+    border-radius: 2px;
+  }
+  .about-title {
+    font-family: 'Oswald', 'Montserrat', system-ui, sans-serif;
+    font-size: clamp(2.5rem, 3.5vw, 3.6rem);
+    letter-spacing: 0.18em;
+    line-height: 1.2;
+    font-weight: 600;
+    color: #e6c98f;
+    text-transform: uppercase;
+    margin: 0 0 1.25rem;
+    position: relative;
+    overflow: hidden;
+    text-shadow:
+      0 0 10px rgba(230, 193, 90, 0.35),
+      0 0 24px rgba(230, 193, 90, 0.15);
+  }
+  .about-manifesto {
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #FFFFFF;
+    max-width: 620px;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 12px rgba(0, 0, 0, 0.5);
+  }
+  .about-manifesto p {
+    margin: 0 0 0.9em;
+    max-width: 45ch;
+  }
+  .about-manifesto p:last-of-type {
+    margin-bottom: 0;
+  }
+  .about-heading-gold {
+    font-weight: 700;
+    color: #d4af37;
+    margin-top: 1.1em;
+    margin-bottom: 0.25em !important;
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .about-heading-gold + p {
+    margin-bottom: 3rem;
+  }
+  .about-heading-gold:nth-of-type(4) + p {
+    border-left: 2px solid rgba(212, 175, 55, 0.4);
+    padding-left: 1.5rem;
+  }
+  .about-title::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.18) 45%,
+      transparent 70%
+    );
+    mix-blend-mode: screen;
+    opacity: 0;
+    transform: translateX(-120%);
+    pointer-events: none;
+    animation: none;
+  }
+  @keyframes aboutTitleSweep {
+    0%, 40% {
+      opacity: 0;
+      transform: translateX(-120%);
+    }
+    50% {
+      opacity: 0.35;
+      transform: translateX(0%);
+    }
+    60%, 100% {
+      opacity: 0;
+      transform: translateX(120%);
+    }
+  }
+  .about-signature {
+    margin-top: 0.75em;
+    font-style: italic;
+    opacity: 0.95;
+  }
+  .about-cta-btn-spacer {
+    display: inline-block;
+    margin-top: 32px;
+    flex-shrink: 0;
+  }
+  .about-hope-quote {
+    position: absolute;
+    bottom: 5vh;
+    right: 5vw;
+    z-index: 2;
+    max-width: 320px;
+    margin: 0;
+    margin-top: 40px;
+    font-size: 1rem;
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.6;
+    opacity: 0.92;
+  }
+
+  /* Sacred quote – subtle 3D luminous gold, ABOUT only */
+  .about-page .sacred-quote {
+    background: linear-gradient(
+      180deg,
+      #fff1a8 0%,
+      #F5D627 40%,
+      #d9b85a 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.25),
+      0 2px 4px rgba(0,0,0,0.6),
+      0 0 8px rgba(245,214,39,0.25);
+    filter: brightness(1.05)
+      drop-shadow(0 0 6px rgba(245,214,39,0.18))
+      drop-shadow(0 0 14px rgba(245,214,39,0.10));
+    animation: sacredBreath 6.5s ease-in-out infinite;
+    will-change: filter, opacity;
+    transform: translateZ(0);
+  }
+
+  @keyframes sacredBreath {
+    0%, 100% {
+      filter: brightness(1.05)
+        drop-shadow(0 0 6px rgba(245,214,39,0.16))
+        drop-shadow(0 0 12px rgba(245,214,39,0.08));
+      opacity: 0.92;
+    }
+    50% {
+      filter: brightness(1.05)
+        drop-shadow(0 0 10px rgba(245,214,39,0.22))
+        drop-shadow(0 0 18px rgba(245,214,39,0.12));
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-page .sacred-quote {
+      animation: none;
+    }
+  }
+  @media (max-width: 900px) {
+    .about-left-col {
+      width: 100%;
+      max-width: none;
+      height: auto;
+      padding: 10vh 1.5rem 6rem;
+    }
+    .about-title {
+      font-size: 2.25rem;
+    }
+    .about-hope-quote {
+      position: static;
+      margin-top: 2rem;
+      padding: 0 1.5rem 2rem;
+      font-size: 1.2rem;
+      max-width: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    :global(html),
+    :global(body) {
+      overflow: auto !important;
+      height: auto !important;
+    }
+
+    .about-cinematic {
+      min-height: 100vh;
+      min-height: 100svh;
+      height: auto !important;
+      overflow: visible !important;
+    }
+
+    .about-bg {
+      position: fixed;
+    }
+
+    .about-title {
+      font-size: clamp(28px, 8vw, 42px);
+      line-height: 1.1;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .about-quote {
+      display: none !important;
+    }
+
+    .about-content {
+      position: relative;
+      z-index: 2;
+      overflow: visible !important;
+    }
+
+    .about-content p {
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .about-cinematic::before,
+    .about-cinematic::after,
+    .absorb-layer {
+      pointer-events: none !important;
+    }
+
+    .about-left-inner {
+      overflow: visible !important;
+      max-height: none;
+      flex: none;
+      min-height: auto;
+    }
+
+    .about-left-col {
+      position: relative !important;
+      top: auto;
+      left: auto;
+      height: auto;
+      width: 100%;
+      padding: 120px 20px 40px;
+    }
+  }
+
+  @media (max-width: 768px) and (orientation: landscape) {
+    .about-left-col {
+      padding-top: 92px;
+    }
+
+    .about-title {
+      font-size: clamp(22px, 5.2vw, 32px);
+      line-height: 1.05;
+      margin-bottom: 14px;
+    }
+  }
+</style>

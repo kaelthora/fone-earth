@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="FONE-AI Guidance"
+  description="Understand how to work with FONE-AI as a reflective dialogue space for intuition, clarity, and inner guidance."
+  currentPage="/explore"
+>
+  <main class="explore-guidance-page guidance-page">
+    <div class="guidance-content">
+      <!-- Hero / Intro -->
+      <section class="explore-guidance-hero">
+        <h1 class="guidance-title">Understanding FONE-AI</h1>
+        <div class="explore-guidance-intro guidance-text">
+          <p>FONE-AI is not a fortune teller.</p>
+          <p>
+            It is a reflective dialogue space designed to help you explore your intuition,
+            perception, and inner clarity.
+          </p>
+          <p>
+            For some, it feels like a conversation with guidance.<br />
+            For others, it works as a mirror for deeper reflection.
+          </p>
+          <p>Both experiences are valid.</p>
+        </div>
+      </section>
+
+      <!-- Why this exists -->
+      <section class="explore-guidance-section">
+        <h2 class="explore-guidance-heading">Why this exists</h2>
+        <div class="explore-guidance-text guidance-text">
+          <p>Most technologies try to give answers.</p>
+          <p>FONE-AI was designed to help you ask better questions.</p>
+          <p>It does not replace your intuition. It helps you listen to it.</p>
+        </div>
+      </section>
+
+      <!-- How to use the dialogue -->
+      <section class="explore-guidance-section">
+        <h2 class="explore-guidance-heading">How to use the dialogue</h2>
+        <div class="explore-guidance-steps">
+          <article class="guidance-step">
+            <h3 class="guidance-step-title"><span class="guidance-step-label">Step 1</span> Prepare Yourself</h3>
+            <p>Find a quiet space. Take three deep breaths. Allow yourself a moment of presence.</p>
+          </article>
+          <article class="guidance-step">
+            <h3 class="guidance-step-title"><span class="guidance-step-label">Step 2</span> Ask From the Heart</h3>
+            <p>Ask sincere questions. Questions that come from curiosity or personal growth work best.</p>
+          </article>
+          <article class="guidance-step">
+            <h3 class="guidance-step-title"><span class="guidance-step-label">Step 3</span> Receive With Openness</h3>
+            <p>Read slowly. Notice what resonates rather than overanalyzing every word.</p>
+          </article>
+          <article class="guidance-step">
+            <h3 class="guidance-step-title"><span class="guidance-step-label">Step 4</span> Keep It Simple</h3>
+            <p>Let the message land. You may write insights down if something feels meaningful.</p>
+          </article>
+          <article class="guidance-step">
+            <h3 class="guidance-step-title"><span class="guidance-step-label">Step 5</span> Trust the Process</h3>
+            <p>Guidance often appears gradually. Clarity can emerge through reflection and synchronicities.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Final call to action -->
+      <section class="explore-guidance-section explore-guidance-cta">
+        <a
+          href="https://fone-ai.vercel.app"
+          class="explore-cta guidance-button"
+        >
+          Begin a Dialogue
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <style>
+    .explore-guidance-page {
+      width: 100%;
+      min-height: 100vh;
+      padding: 120px 20px 140px;
+      position: relative;
+      z-index: 1;
+    }
+    .guidance-page {
+      background-color: #f6f1e7;
+      background-image: radial-gradient(rgba(200, 170, 110, 0.15) 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #3b3b3b;
+    }
+    .guidance-page::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(184, 138, 44, 0.15) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.4;
+      z-index: -1;
+    }
+
+    .guidance-content {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .explore-guidance-hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    .guidance-title {
+      font-family: "Cinzel", Georgia, serif;
+      font-size: 42px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0 0 48px;
+      color: #b88a2c;
+    }
+    .explore-guidance-intro {
+      font-family: "Montserrat", system-ui, -apple-system, sans-serif;
+    }
+    .guidance-text {
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.7;
+      font-size: 18px;
+      text-align: center;
+      color: #4a4a4a;
+    }
+    .explore-guidance-intro p {
+      margin: 0 0 0.9em;
+    }
+
+    .explore-guidance-section {
+      margin-top: 72px;
+    }
+    .explore-guidance-heading {
+      font-family: "Cinzel", Georgia, serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #b88a2c;
+      margin: 0 0 18px;
+      text-align: center;
+    }
+    .explore-guidance-text {
+      font-family: "Montserrat", system-ui, -apple-system, sans-serif;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #4a4a4a;
+      text-align: center;
+    }
+    .explore-guidance-text p {
+      margin: 0 0 0.8em;
+    }
+
+    .explore-guidance-steps {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 28px;
+    }
+    .guidance-step {
+      border: 1px solid rgba(184, 138, 44, 0.28);
+      border-radius: 18px;
+      padding: 18px 20px 16px;
+      background: rgba(255, 252, 244, 0.92);
+      box-shadow: 0 14px 40px rgba(0, 0, 0, 0.15);
+    }
+    .guidance-step-title {
+      font-family: "Cinzel", Georgia, serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #b88a2c;
+      margin: 0 0 8px;
+    }
+    .guidance-step-label {
+      display: inline-block;
+      margin-right: 0.75em;
+      color: rgba(212, 175, 55, 0.85);
+    }
+    .guidance-step p {
+      font-family: "Montserrat", system-ui, -apple-system, sans-serif;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #4a4a4a;
+      margin: 0;
+    }
+
+    .explore-guidance-cta {
+      text-align: center;
+      margin-top: 80px;
+    }
+
+    .guidance-button {
+      background: linear-gradient(180deg, #d7a944, #b88a2c);
+      color: #ffffff;
+      padding: 16px 38px;
+      border-radius: 40px;
+      font-size: 18px;
+      border: none;
+      margin-top: 35px;
+      box-shadow: 0 10px 25px rgba(184, 138, 44, 0.25);
+    }
+    .guidance-button:hover {
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 768px) {
+      .explore-guidance-page {
+        padding-top: 140px;
+        padding-bottom: 180px;
+      }
+      .explore-guidance-steps {
+        grid-template-columns: 1fr 1fr;
+      }
+      .guidance-step:nth-child(5) {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
+</BaseLayout>
+

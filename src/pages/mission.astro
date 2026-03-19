@@ -1,0 +1,667 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Mission" 
+  description="Missions of FONE — Restore faith. Restore humanity. A sanctuary for all."
+  currentPage="/mission"
+>
+  <main class="mission-manifesto-page">
+    <section class="missions-hero" id="missions-hero">
+      <div class="missions-hero-content cinematic-text">
+        <h1 class="missions-hero-title">OUR MISSIONS</h1>
+        <p class="missions-hero-text">
+          A better world will not appear by accident.<br />
+          We must build it.
+        </p>
+        <p class="missions-hero-text">
+          These are the first missions guiding us<br />
+          to bring back what humanity was always meant to be:
+        </p>
+        <span class="missions-unity unity-reveal">A UNITED HUMANITY.</span>
+        <p class="missions-hero-text">
+          Together, we will rebuild one simple rule:<br />
+          Respect, Universal Love and Equity.
+        </p>
+      </div>
+    </section>
+
+    <!-- Cinematic storytelling – full-screen scenes -->
+    <div class="mission-filmstrip">
+      <section class="mission-scene mission-section" id="foundation-1">
+        <div class="mission-scene-bg mission-scene-bg-1 mission-image mission-parallax parallax parallax-layer"></div>
+        <div class="mission-content">
+          <h2 class="mission-scene-title mission-title">1. RESTORE HUMANITY (NOT CHARITY)</h2>
+          <p class="mission-scene-body mission-text">
+            Our first mission is to restore faith. Faith in ourselves, faith in humanity. We look at the "invisible people"—those the world calls homeless—as if their status were a normal fact of modern life. It is not normal. FONE exists to give these people their dignity back. To get them back on their feet and prove that humanity is not done. Not after the World Wars, not now, not ever. We will build shelters. Not by charity, but because it is the right thing to do. The day the words "charity" and "kindness" were invented, something went wrong. Providing a roof and a future is not a favor; it is the human thing to do.
+          </p>
+        </div>
+      </section>
+
+      <section class="mission-scene mission-scene--right mission-section" id="foundation-2">
+        <div class="mission-scene-bg mission-scene-bg-2 mission-image mission-parallax parallax parallax-layer"></div>
+        <div class="mission-content">
+          <h2 class="mission-scene-title mission-title">2. A SANCTUARY FOR ALL (NO ELITES)</h2>
+          <p class="mission-scene-body mission-text">
+            Social media is full of talk about "chosen ones" and "elites" being saved. What does that even mean? If we only save the elite, how is that different from the world ruling us today? FONE is different. If you stumble across a sinking boat with hundreds drowning, do you pick who you save? Or are you going to listen to your heart and do whatever it takes to save everyone? FONE is a sanctuary for ALL. Not the selected. Not the chosen. EVERYONE. If you carry love, light, and an untamable will to restore humanity: Join us.
+          </p>
+        </div>
+      </section>
+
+      <section class="mission-scene mission-section" id="foundation-3">
+        <div class="mission-scene-bg mission-scene-bg-3 mission-image mission-parallax parallax parallax-layer"></div>
+        <div class="mission-content">
+          <h2 class="mission-scene-title mission-title">3. THE SACRED VOW: PROTECT THE CHILDREN</h2>
+          <p class="mission-scene-body mission-text">
+            Too many children grow up in violence and horrors no soul should ever witness. The reality of this world is dark, but it befalls upon us to create a Safe Haven. In FONE communities, children will learn only one thing: To live. To play, to enjoy, to be light. Love and warmth are the only frequencies allowed past our gates. Nothing else. A child comes to Earth perfect and divine. Their environment defines them. It is our absolute duty to ensure the next generations never witness darkness again.
+          </p>
+        </div>
+      </section>
+
+      <section class="mission-scene mission-scene--cta call-section mission-section" id="foundation-cta">
+        <div class="mission-scene-bg mission-scene-bg-dark mission-image mission-parallax parallax parallax-layer"></div>
+        <div class="mission-content mission-content--cta">
+          <p class="mission-cta-text mission-text">
+            THIS IS A CALLING. It will not be easy. It was never meant to be. But together, as One, we will build a New Earth. We can achieve anything.
+          </p>
+          <a href="/community" class="hero-btn-secondary mission-cta-btn-link group relative overflow-hidden px-10 sm:px-12 py-4 sm:py-5 rounded-full font-semibold text-sm sm:text-base cursor-pointer">
+            <span class="relative z-10">ANSWER THE CALL</span>
+          </a>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</BaseLayout>
+
+<script>
+  document.documentElement.classList.add('mission-scroll-snap');
+
+  (function () {
+    const hero = document.getElementById('missions-hero');
+    const text = hero?.querySelector('.cinematic-text');
+    if (!hero || !text) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const e = entries[0];
+        if (!e) return;
+        if (e.intersectionRatio < 0.4) text.classList.add('fade-out');
+        else text.classList.remove('fade-out');
+      },
+      { root: null, rootMargin: '0px', threshold: [0.4] }
+    );
+    observer.observe(hero);
+  })();
+
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.querySelector(".unity-reveal")?.classList.add("active");
+    }, 800);
+  });
+</script>
+
+<style>
+  :global(html.mission-scroll-snap) {
+    scroll-snap-type: y mandatory;
+  }
+  .mission-manifesto-page > section:first-of-type {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+  }
+  .mission-manifesto-page {
+    background: #000000;
+    color: #FFFFFF;
+  }
+  .mission-manifesto-page .gradient-text,
+  .mission-manifesto-page .text-accent,
+  .mission-accent {
+    color: #D4AF37;
+  }
+  .mission-manifesto-page section:first-of-type p,
+  .mission-manifesto-page .text-muted {
+    color: rgba(255, 255, 255, 0.9);
+  }
+  .mission-manifesto-page .heading-xl,
+  .mission-manifesto-page .heading-lg {
+    font-family: Georgia, 'Times New Roman', serif;
+    color: #FFFFFF;
+  }
+  .mission-manifesto-page > section:first-of-type:not(.missions-hero) {
+    padding-bottom: 4rem;
+  }
+
+  /* Missions hero – cosmic background, no solid black block */
+  .missions-hero {
+    position: relative;
+    background: radial-gradient(
+      circle at 50% 30%,
+      rgba(30, 30, 40, 0.92),
+      rgba(10, 10, 15, 0.98)
+    );
+  }
+  .missions-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    z-index: 0;
+    background-image:
+      radial-gradient(circle at 20% 40%, rgba(255, 255, 255, 0.06) 1px, transparent 2px),
+      radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.05) 1px, transparent 2px);
+    background-size: 600px 600px;
+  }
+  .missions-hero::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 120px;
+    pointer-events: none;
+    z-index: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.85)
+    );
+  }
+  .missions-hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: auto;
+    text-align: center;
+    line-height: 1.6;
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .missions-hero-title {
+    font-family: 'Oswald', 'Montserrat', system-ui, sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    background: linear-gradient(
+      90deg,
+      #caa92a 0%,
+      #F5D627 25%,
+      #fff1a8 50%,
+      #F5D627 75%,
+      #caa92a 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+      0 0 10px rgba(245, 214, 39, 0.35),
+      0 0 22px rgba(245, 214, 39, 0.15);
+    margin: 0 0 1.5rem;
+    text-transform: uppercase;
+  }
+  .missions-hero-text {
+    font-family: 'Montserrat', system-ui, sans-serif;
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0 0 1rem;
+  }
+  .missions-unity {
+    display: block;
+    margin: 24px 0;
+    font-size: 1.4em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: #e6c15a;
+    text-shadow: 0 0 12px rgba(230, 193, 90, 0.25);
+  }
+
+  .unity-reveal {
+    opacity: 0;
+    transform: translateY(10px);
+    letter-spacing: 2px;
+    color: #F5D627;
+    text-shadow:
+      0 0 8px rgba(245, 214, 39, 0.35),
+      0 0 18px rgba(245, 214, 39, 0.15);
+  }
+  .unity-reveal.active {
+    animation: unityReveal 1.8s ease forwards;
+  }
+  @keyframes unityReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(12px);
+      letter-spacing: 6px;
+      filter: blur(6px);
+    }
+    50% {
+      opacity: 0.6;
+      filter: blur(2px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      letter-spacing: 2px;
+      filter: blur(0);
+    }
+  }
+
+  /* Cinematic scroll: hero text fades and moves up as hero leaves viewport */
+  .cinematic-text {
+    transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+  }
+  .cinematic-text.fade-out {
+    opacity: 0;
+    transform: translateY(-48px);
+  }
+
+  .mission-section-title {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #FFFFFF;
+  }
+
+  /* Cinematic storytelling – full-screen scenes */
+  .mission-filmstrip {
+    width: 100%;
+  }
+
+  .mission-scene {
+    position: relative;
+    width: 100%;
+    min-height: 85vh;
+    overflow: hidden;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .mission-scene--right {
+    justify-content: flex-end;
+  }
+  .mission-scene::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.52) 0%,
+      rgba(0, 0, 0, 0.32) 35%,
+      rgba(0, 0, 0, 0.12) 55%,
+      rgba(0, 0, 0, 0.04) 70%,
+      transparent 85%
+    );
+    pointer-events: none;
+    z-index: 0.5;
+  }
+  .mission-scene--right::before {
+    background: linear-gradient(
+      to left,
+      rgba(0, 0, 0, 0.52) 0%,
+      rgba(0, 0, 0, 0.32) 35%,
+      rgba(0, 0, 0, 0.12) 55%,
+      rgba(0, 0, 0, 0.04) 70%,
+      transparent 85%
+    );
+  }
+  .mission-scene--cta,
+  .call-section {
+    justify-content: center;
+    min-height: 0;
+    padding: 110px 20px;
+  }
+  .mission-scene--cta .mission-scene-bg-dark,
+  .call-section .mission-scene-bg-dark {
+    background: radial-gradient(
+      circle at 50% 30%,
+      rgba(30, 30, 40, 0.92),
+      rgba(10, 10, 15, 0.98)
+    );
+    background-image: none;
+  }
+  .mission-scene--cta::before,
+  .call-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.35;
+    z-index: 0.5;
+    background-image:
+      radial-gradient(circle at 20% 40%, rgba(255, 255, 255, 0.06) 1px, transparent 2px),
+      radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.05) 1px, transparent 2px);
+    background-size: 600px 600px;
+  }
+  .mission-scene--cta::after,
+  .call-section::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 120px;
+    pointer-events: none;
+    z-index: 0.5;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0),
+      rgba(0, 0, 0, 0.85)
+    );
+  }
+  #foundation-1::before {
+    display: none;
+  }
+  .mission-scene-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @media (min-width: 769px) {
+    .mission-scene-bg:not(.mission-scene-bg-dark) {
+      background-attachment: fixed;
+    }
+  }
+  .mission-scene-bg-1 {
+    background-image: url('/image_0.png');
+    background-position: center 15%;
+  }
+  .mission-scene-bg-2 {
+    background-image: url('/image_1.png');
+    background-position: center 25%;
+  }
+  .mission-scene-bg-3 {
+    background-image: url('/image_2.png');
+    background-position: center 30%;
+  }
+  .mission-scene-bg-dark {
+    background: #000000;
+    background-image: none;
+  }
+  .mission-content {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    padding-left: clamp(40px, 6vw, 120px);
+    padding-right: 2rem;
+    box-sizing: border-box;
+    text-align: left;
+  }
+  .mission-scene--right .mission-content {
+    padding-left: 2rem;
+    padding-right: clamp(40px, 6vw, 120px);
+    text-align: right;
+  }
+  .mission-content--cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .mission-scene--right .mission-content--cta {
+    align-items: center;
+    text-align: center;
+  }
+  .mission-scene-title {
+    font-family: 'Oswald', 'Montserrat', system-ui, sans-serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    color: #d4af37;
+    margin: 0 0 1.25rem;
+    text-transform: uppercase;
+    text-shadow:
+      0 2px 4px rgba(0, 0, 0, 0.35),
+      0 0 8px rgba(212, 175, 55, 0.25);
+  }
+  .mission-scene-body {
+    font-family: 'Montserrat', system-ui, -apple-system, sans-serif;
+    font-size: 1.125rem;
+    font-weight: 400;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.96);
+    margin: 0;
+    max-width: min(520px, 65ch);
+    text-shadow:
+      0 2px 6px rgba(0,0,0,0.6),
+      0 0 8px rgba(255,255,255,0.08),
+      0 0 14px rgba(245, 214, 39, 0.08);
+    filter: drop-shadow(0 0 2px rgba(245, 214, 39, 0.06));
+    will-change: text-shadow;
+  }
+  .mission-scene-body:hover {
+    text-shadow:
+      0 2px 8px rgba(0,0,0,0.7),
+      0 0 12px rgba(255,255,255,0.12),
+      0 0 20px rgba(245, 214, 39, 0.12);
+  }
+  .mission-scene--right .mission-scene-body {
+    margin-left: auto;
+  }
+  #foundation-1 .mission-scene-title {
+    background: linear-gradient(
+      90deg,
+      #caa92a 0%,
+      #F5D627 25%,
+      #fff1a8 50%,
+      #F5D627 75%,
+      #caa92a 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+      0 0 10px rgba(245, 214, 39, 0.35),
+      0 0 22px rgba(245, 214, 39, 0.15);
+  }
+
+  /* Match section 1 premium gold title style (missions page only) */
+  #foundation-2 .mission-scene-title,
+  #foundation-3 .mission-scene-title {
+    background: linear-gradient(
+      90deg,
+      #caa92a 0%,
+      #F5D627 25%,
+      #fff1a8 50%,
+      #F5D627 75%,
+      #caa92a 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow:
+      0 0 10px rgba(245, 214, 39, 0.35),
+      0 0 22px rgba(245, 214, 39, 0.15);
+  }
+  #foundation-1 .mission-scene-body {
+    color: rgba(255,255,255,0.95);
+    text-shadow:
+      0 2px 6px rgba(0,0,0,0.6),
+      0 0 12px rgba(0,0,0,0.4);
+    letter-spacing: 0.2px;
+    line-height: 1.6;
+  }
+
+  /* Restore Humanity – cinematic local light control */
+  #foundation-1 .mission-content {
+    position: relative;
+    isolation: isolate;
+    transform: translateZ(0);
+    box-shadow: inset 120px 0 120px -60px rgba(0,0,0,0.25);
+  }
+  #foundation-1 .mission-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at 20% 50%,
+      rgba(0,0,0,0.38) 0%,
+      rgba(0,0,0,0.22) 30%,
+      rgba(0,0,0,0.08) 55%,
+      transparent 75%
+    );
+    pointer-events: none;
+    z-index: 1;
+  }
+  #foundation-1 .mission-content > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  .mission-cta-text {
+    font-family: 'Oswald', 'Montserrat', system-ui, sans-serif;
+    font-size: clamp(18px, 1.4vw, 22px);
+    font-weight: 600;
+    line-height: 1.6;
+    letter-spacing: 0.08em;
+    color: #FFFFFF;
+    margin: 0;
+    text-transform: uppercase;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.9), 0 0 12px rgba(0, 0, 0, 0.5);
+  }
+  .mission-cta-btn-link {
+    margin-top: 40px;
+  }
+
+  @media (max-width: 768px) {
+    .parallax,
+    .parallax-layer,
+    .mission-parallax {
+      transform: none !important;
+      animation: none !important;
+      will-change: auto !important;
+    }
+
+    .mission-section {
+      display: flex !important;
+      flex-direction: column !important;
+      padding: 40px 20px;
+      gap: 20px;
+      margin-bottom: 50px;
+      position: relative;
+      z-index: 2;
+      min-height: unset !important;
+      height: auto !important;
+    }
+
+    .mission-image {
+      position: relative;
+      width: 100%;
+      height: auto;
+      min-height: 220px;
+      max-height: 260px;
+      object-fit: cover;
+      border-radius: 12px;
+      transform: none !important;
+      background-attachment: scroll !important;
+    }
+
+    .mission-title {
+      font-size: clamp(22px, 6vw, 28px);
+      line-height: 1.25;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .mission-text {
+      font-size: 15px;
+      line-height: 1.65;
+      text-align: center;
+      opacity: 0.9;
+    }
+
+    .mission-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    /* Mobile: CTA scene should not dominate the viewport */
+    #foundation-cta {
+      min-height: unset !important;
+      height: auto !important;
+      justify-content: center !important;
+      align-items: flex-start !important;
+      padding: 28px 20px 22px !important;
+      margin-bottom: 0 !important;
+    }
+
+    /* Reduce bottom decorative band that can look like a rectangle */
+    #foundation-cta::after,
+    .call-section::after {
+      height: 0 !important;
+      opacity: 0 !important;
+      background: transparent !important;
+    }
+
+    #foundation-cta::before,
+    .call-section::before {
+      opacity: 0.18 !important;
+    }
+
+    .mission-content--cta {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+      margin-top: 0 !important;
+    }
+
+    .mission-cta-btn-link {
+      margin-top: 14px !important;
+    }
+  }
+
+  @media (max-width: 768px) and (orientation: landscape) {
+    .mission-section {
+      min-height: 100vh !important;
+      min-height: 100svh !important;
+    }
+
+    .mission-image {
+      min-height: 72vh;
+      max-height: none;
+      background-size: cover;
+      background-position: center center;
+    }
+
+    /* Landscape: allow CTA to be smaller than full viewport */
+    #foundation-cta {
+      min-height: auto !important;
+      height: auto !important;
+      padding: 22px 20px 16px !important;
+      justify-content: center !important;
+      align-items: flex-start !important;
+    }
+
+    #foundation-cta {
+      margin-bottom: 0 !important;
+    }
+
+    /* Scene 1: adjust portrait placement (face cut) only */
+    #foundation-1 .mission-scene-bg-1 {
+      background-position: center 22% !important;
+    }
+
+    #foundation-cta::after,
+    .mission-scene--cta::after,
+    .call-section::after {
+      height: 0 !important;
+      opacity: 0 !important;
+      background: transparent !important;
+    }
+  }
+</style>
