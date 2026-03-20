@@ -2668,6 +2668,109 @@ footer .border-t {
 .inner-compass-block {
   position: relative;
 }
+
+/*
+ * Inner Compass copy — same phase as orbAbsorb (opacity stops 0/20/40/60/80/100),
+ * translateY + blur echo “pull” without inverting the cycle.
+ */
+@keyframes compassBreath {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+
+  20% {
+    opacity: 0.9;
+    transform: translateY(2px);
+    filter: blur(0.5px);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  60% {
+    opacity: 0.95;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  80% {
+    opacity: 0.6;
+    transform: translateY(8px);
+    filter: blur(2.5px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(4px);
+  }
+}
+
+/* Même phase orb ; mouvements un peu plus légers sur mobile / tablette */
+@keyframes compassBreathTouch {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(3px);
+  }
+
+  20% {
+    opacity: 0.9;
+    transform: translateY(2px);
+    filter: blur(0.5px);
+  }
+
+  40% {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  60% {
+    opacity: 0.95;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  80% {
+    opacity: 0.6;
+    transform: translateY(6px);
+    filter: blur(2px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+    filter: blur(3px);
+  }
+}
+
+.inner-compass-content {
+  position: relative;
+  z-index: 2;
+  animation: compassBreath var(--gravity-cycle) linear infinite;
+}
+
+@media (max-width: 1024px) {
+  .explore-page .inner-compass-content {
+    animation-name: compassBreathTouch;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner-compass-content {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
 .explore-candle-core {
   position: absolute;
   left: 50%;
@@ -2891,36 +2994,125 @@ footer .border-t {
   z-index: 1;
 }
 
-/* Explore - Presence cinematic reveal (mobile only) */
-@media (max-width: 768px) {
-  .presence-video-wrapper {
+/*
+ * Explore / Presence — même pile vidéo + voiles que desktop sur mobile & tablette
+ * (fond neutre, fumée lisible, texte au-dessus des calques).
+ */
+.explore-page .section-presence {
+  background-color: #000000;
+  background: linear-gradient(
+    180deg,
+    #000000 0%,
+    #010101 35%,
+    #020202 100%
+  );
+}
+
+.explore-page .section-presence .presence-video-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  filter: brightness(0.88) saturate(0.72);
+}
+
+.explore-page .section-presence .presence-bg-video {
+  filter: blur(6px);
+}
+
+.explore-page .section-presence .presence-section {
+  position: relative;
+  z-index: 3;
+}
+
+.explore-page .section-presence::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.52) 0%,
+      rgba(0, 0, 0, 0.4) 32%,
+      rgba(0, 0, 0, 0.34) 55%,
+      rgba(0, 0, 0, 0.48) 100%
+    ),
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(0, 0, 0, 0.25) 0%,
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 120% 80% at 50% 100%,
+      rgba(0, 0, 0, 0.32) 0%,
+      transparent 62%
+    );
+  backdrop-filter: saturate(0.88) brightness(0.94);
+  -webkit-backdrop-filter: saturate(0.88) brightness(0.94);
+}
+
+.explore-page .section-presence::after {
+  z-index: 2;
+  background: radial-gradient(
+    circle at top center,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.55) 85%
+  );
+}
+
+/* Inner Compass → Presence: fondu bas de section (desktop / grands écrans seulement) */
+@media (min-width: 769px) {
+  .section-compass::after {
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 38%,
+        rgba(0, 0, 0, 0.45) 68%,
+        rgba(0, 0, 0, 0.88) 86%,
+        rgba(0, 0, 0, 1) 100%
+      ),
+      radial-gradient(
+        circle at center,
+        rgba(0, 0, 0, 0.65) 0%,
+        rgba(0, 0, 0, 0.35) 30%,
+        rgba(0, 0, 0, 0) 60%
+      ) !important;
+  }
+}
+
+/* Explore — intro courte puis même rendu vidéo (téléphone & tablette) */
+@media (max-width: 1024px) {
+  .explore-page .presence-video-wrapper {
     position: absolute;
     inset: 0;
     z-index: 0;
     pointer-events: none;
   }
 
-  .presence-video-wrapper::after {
+  .explore-page .presence-video-wrapper::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.72);
     pointer-events: none;
     opacity: 1;
-    transition: opacity 2s ease;
+    transition: opacity 1.6s ease;
     z-index: 1;
   }
 
-  .presence-video {
-    filter: brightness(0.3);
-    transition: filter 2s ease;
+  .explore-page .presence-video {
+    filter: brightness(0.5);
+    transition: filter 1.6s ease;
   }
 
-  body.presence-reveal .presence-video-wrapper::after {
+  body.presence-reveal .explore-page .presence-video-wrapper::after {
     opacity: 0;
   }
 
-  body.presence-reveal .presence-video {
+  body.presence-reveal .explore-page .presence-video {
     filter: brightness(1);
   }
 }
@@ -3890,6 +4082,10 @@ footer .border-t {
 
 /* Confirmation text: basic, no animation */
 .signal-confirmation[hidden] { display: none; }
+
+.signal-confirmation.signal-confirmation--error {
+  color: rgba(255, 160, 140, 0.95);
+}
 
 /* CONTACT – clean cinematic click system (pulse + star wave) */
 .contact-page .signal-btn {

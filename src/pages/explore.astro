@@ -20,12 +20,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </div>
       <div class="explore-sanctuary-inner">
         <div class="inner-compass-block content-center">
-          <h2 class="explore-title">The Inner Compass</h2>
+          <div class="inner-compass-content">
+            <h2 class="explore-title">The Inner Compass</h2>
 
-          <p class="anchor explore-sanctuary-text">The sanctuary is your home.</p>
-          <p class="explore-sanctuary-text">Guidance does not come from outside.</p>
-          <p class="explore-sanctuary-text">It awakens in the quiet space</p>
-          <p class="explore-sanctuary-text">where you allow yourself to listen.</p>
+            <p class="anchor explore-sanctuary-text">The sanctuary is your home.</p>
+            <p class="explore-sanctuary-text">Guidance does not come from outside.</p>
+            <p class="explore-sanctuary-text">It awakens in the quiet space</p>
+            <p class="explore-sanctuary-text">where you allow yourself to listen.</p>
+          </div>
 
           <div class="explore-candle-core" aria-hidden="true"></div>
         </div>
@@ -41,9 +43,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           muted
           loop
           playsinline
+          preload="auto"
           aria-hidden="true"
         >
-          <source src="/fog-incense.mp4" type="video/mp4" />
+          <source src="/fog-incense-dark.mp4" type="video/mp4" />
         </video>
 
         <video
@@ -52,9 +55,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           muted
           loop
           playsinline
+          preload="auto"
           aria-hidden="true"
         >
-          <source src="/fog-incense.mp4" type="video/mp4" />
+          <source src="/fog-incense-dark.mp4" type="video/mp4" />
         </video>
       </div>
 
@@ -127,109 +131,172 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   })();
 </script>
 
-<script>
+<script is:inline>
   (function () {
-    const rate = 0.35;
+    function initPresenceVideos() {
+      const rate = 0.35;
 
-    const videos = Array.from(
-      document.querySelectorAll(".presence-bg-video")
-    ).filter((v) => v instanceof HTMLVideoElement);
+      const videos = Array.from(
+        document.querySelectorAll(".presence-bg-video")
+      ).filter((v) => v instanceof HTMLVideoElement);
 
-    if (!videos.length) return;
+      if (!videos.length) return;
 
-    const applyRate = (video) => {
-      try {
-        video.playbackRate = rate;
-      } catch (e) {
-        // Ignore silently if playbackRate isn't available yet.
+      for (const v of videos) {
+        v.muted = true;
+        v.defaultMuted = true;
       }
-    };
 
-    // Need 2 layers to mask loop restart; if only 1 exists, just slow it down.
-    const [a, b] = videos;
-    if (!b) {
+      const applyRate = (video) => {
+        try {
+          video.playbackRate = rate;
+        } catch (e) {
+          // Ignore silently if playbackRate isn't available yet.
+        }
+      };
+
+      const tryPlayAll = () => {
+        for (const v of videos) {
+          applyRate(v);
+          v.play().catch(function () {});
+        }
+      };
+
+      /* Firefox: autoplay + play() often need data / visibility — retry on canplay & scroll */
+      videos.forEach(function (v) {
+        v.addEventListener(
+          "canplay",
+          function () {
+            tryPlayAll();
+          },
+          { once: true }
+        );
+      });
+      const presenceSection = document.querySelector("section.explore-presence");
+      if (presenceSection && "IntersectionObserver" in window) {
+        const io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) tryPlayAll();
+            });
+          },
+          { threshold: 0.04, rootMargin: "80px 0px 80px 0px" }
+        );
+        io.observe(presenceSection);
+      }
+
+      const activeOpacity = () =>
+        window.matchMedia("(min-width: 1025px)").matches ? "0.82" : "0.72";
+
+      // Need 2 layers to mask loop restart; if only 1 exists, just slow it down.
+      const [a, b] = videos;
+      if (!b) {
+        for (const v of videos) {
+          if (v.readyState >= 1) applyRate(v);
+          else v.addEventListener("loadedmetadata", () => applyRate(v), { once: true });
+          v.style.opacity = activeOpacity();
+        }
+        tryPlayAll();
+        return;
+      }
+
+      let crossfadeStarted = false;
+
+      const setOpacity = (video, value) => {
+        video.style.opacity = String(value);
+      };
+
+      const fadeTo = (active) => {
+        const o = activeOpacity();
+        setOpacity(a, active === a ? o : "0");
+        setOpacity(b, active === b ? o : "0");
+      };
+
+      const THRESHOLD_SECONDS = 0.25; // switch slightly before the loop point
+      let switchedToB = false;
+
+      const startCrossfade = () => {
+        if (crossfadeStarted) return;
+        crossfadeStarted = true;
+
+        try {
+          if (b.duration && Number.isFinite(b.duration)) {
+            b.currentTime = Math.max(0, b.duration * 0.5);
+          }
+        } catch (e) {
+          // Ignore if seeking is blocked.
+        }
+
+        fadeTo(a);
+
+        tryPlayAll();
+
+        window.setInterval(() => {
+          if (!a.duration || !b.duration || !Number.isFinite(a.duration)) return;
+
+          const aRemaining = a.duration - a.currentTime;
+          const bRemaining = b.duration - b.currentTime;
+
+          if (!switchedToB && aRemaining < THRESHOLD_SECONDS) {
+            switchedToB = true;
+            fadeTo(b);
+          } else if (switchedToB && bRemaining < THRESHOLD_SECONDS) {
+            switchedToB = false;
+            fadeTo(a);
+          }
+        }, 160);
+      };
+
       for (const v of videos) {
         if (v.readyState >= 1) applyRate(v);
         else v.addEventListener("loadedmetadata", () => applyRate(v), { once: true });
       }
-      return;
-    }
 
-    const setOpacity = (video, value) => {
-      video.style.opacity = String(value);
-    };
-
-    const fadeTo = (active) => {
-      setOpacity(a, active === a ? 0.25 : 0);
-      setOpacity(b, active === b ? 0.25 : 0);
-    };
-
-    const THRESHOLD_SECONDS = 0.25; // switch slightly before the loop point
-    let switchedToB = false;
-
-    const startCrossfade = () => {
-      // Stagger the phase so one layer is always mid-play when the other loops.
-      try {
-        if (b.duration && Number.isFinite(b.duration)) {
-          b.currentTime = Math.max(0, b.duration * 0.5);
-        }
-      } catch (e) {
-        // Ignore if seeking is blocked.
+      const readyA = a.readyState >= 1;
+      const readyB = b.readyState >= 1;
+      if (readyA && readyB) startCrossfade();
+      else {
+        let count = 0;
+        const onMeta = () => {
+          count += 1;
+          if (count >= 2) startCrossfade();
+        };
+        a.addEventListener("loadedmetadata", onMeta, { once: true });
+        b.addEventListener("loadedmetadata", onMeta, { once: true });
       }
 
-      // Initial state: show layer A, hide layer B.
-      fadeTo(a);
+      tryPlayAll();
 
-      // Ensure both are playing (autoplay should already handle this).
-      a.play().catch(() => {});
-      b.play().catch(() => {});
-
-      window.setInterval(() => {
-        if (!a.duration || !b.duration) return;
-
-        const aRemaining = a.duration - a.currentTime;
-        const bRemaining = b.duration - b.currentTime;
-
-        // If the active layer is about to hit the loop boundary, switch.
-        if (!switchedToB && aRemaining < THRESHOLD_SECONDS) {
-          switchedToB = true;
-          fadeTo(b);
-        } else if (switchedToB && bRemaining < THRESHOLD_SECONDS) {
-          switchedToB = false;
-          fadeTo(a);
-        }
-      }, 160);
-    };
-
-    for (const v of videos) {
-      if (v.readyState >= 1) applyRate(v);
-      else v.addEventListener("loadedmetadata", () => applyRate(v), { once: true });
+      /* If metadata never arrives (codec / network), still show one layer */
+      window.setTimeout(() => {
+        if (crossfadeStarted) return;
+        applyRate(a);
+        setOpacity(a, activeOpacity());
+        setOpacity(b, "0");
+        tryPlayAll();
+      }, 2500);
     }
 
-    // Wait for both metadata so durations are known.
-    const readyA = a.readyState >= 1;
-    const readyB = b.readyState >= 1;
-    if (readyA && readyB) startCrossfade();
-    else {
-      let count = 0;
-      const onMeta = () => {
-        count += 1;
-        if (count >= 2) startCrossfade();
-      };
-      a.addEventListener("loadedmetadata", onMeta, { once: true });
-      b.addEventListener("loadedmetadata", onMeta, { once: true });
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initPresenceVideos, { once: true });
+    } else {
+      initPresenceVideos();
     }
   })();
 </script>
 
-<script>
+<script is:inline>
   (function () {
-    const isMobile = window.matchMedia("(max-width: 768px)").matches;
-    if (!isMobile) return;
-    document.addEventListener("DOMContentLoaded", () => {
-      setTimeout(() => {
+    function schedulePresenceReveal() {
+      if (!window.matchMedia("(max-width: 1024px)").matches) return;
+      window.setTimeout(function () {
         document.body.classList.add("presence-reveal");
       }, 1500);
-    });
+    }
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", schedulePresenceReveal, { once: true });
+    } else {
+      schedulePresenceReveal();
+    }
   })();
 </script>

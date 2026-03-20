@@ -48,7 +48,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           Speak freely.<br />
           Every message is received with respect.
         </p>
-        <form class="contact-form" action="#" method="post" id="contact-form">
+        <form class="contact-form" action="/api/sendEmail.json" method="POST" id="contact-form">
           <div class="contact-field">
             <label for="contact-name" class="contact-label">Your Name</label>
             <input
@@ -118,13 +118,55 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       }, 1200);
     });
 
-    form.addEventListener("submit", function (e) {
+    form.addEventListener("submit", async function (e) {
       e.preventDefault();
 
-      submitBtn.classList.add("contact-submit-sent");
-      const label = submitBtn.querySelector("span");
-      if (label) label.textContent = "Signal received";
-      if (confirmation instanceof HTMLElement) confirmation.hidden = false;
+      submitBtn.disabled = true;
+      if (confirmation instanceof HTMLElement) {
+        confirmation.hidden = true;
+        confirmation.textContent = "Signal received.";
+        confirmation.classList.remove("signal-confirmation--error");
+      }
+
+      try {
+        const res = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+        });
+        const data = await res.json().catch(function () {
+          return null;
+        });
+
+        if (!res.ok || !data || !data.ok) {
+          const err =
+            data && typeof data.error === "string"
+              ? data.error
+              : "Could not send your message.";
+          if (confirmation instanceof HTMLElement) {
+            confirmation.textContent = err;
+            confirmation.classList.add("signal-confirmation--error");
+            confirmation.hidden = false;
+          }
+          return;
+        }
+
+        submitBtn.classList.add("contact-submit-sent");
+        const label = submitBtn.querySelector("span");
+        if (label) label.textContent = "Signal received";
+        if (confirmation instanceof HTMLElement) {
+          confirmation.textContent = "Signal received.";
+          confirmation.hidden = false;
+        }
+        form.reset();
+      } catch {
+        if (confirmation instanceof HTMLElement) {
+          confirmation.textContent = "Network error. Please try again.";
+          confirmation.classList.add("signal-confirmation--error");
+          confirmation.hidden = false;
+        }
+      } finally {
+        submitBtn.disabled = false;
+      }
     });
   })();
 </script>
