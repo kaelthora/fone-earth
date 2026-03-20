@@ -45,7 +45,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   const from =
     import.meta.env.RESEND_FROM?.trim() ||
-    "FONE Contact <onboarding@resend.dev>";
+    "FONE Contact <contact@fone.earth>";
 
   const resend = new Resend(apiKey);
   const { data, error } = await resend.emails.send({
