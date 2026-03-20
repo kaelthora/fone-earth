@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fone.example.com/sitemap.xml
+Sitemap: https://www.fone.earth/sitemap-index.xml

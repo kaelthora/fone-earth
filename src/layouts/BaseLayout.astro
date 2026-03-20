@@ -4,20 +4,13 @@ import Footer from '../components/Footer.astro';
 import '../styles/global.css';
 
 interface Props {
-  title: string;
-  description?: string;
   currentPage?: string;
+  title?: string;
+  description?: string;
   ogImage?: string;
 }
 
-const { 
-  title, 
-  description = 'FONE - Building the future of human connection through technology.',
-  currentPage = '',
-  ogImage = '/og-image.jpg'
-} = Astro.props;
-
-const siteTitle = title === 'Home' ? 'FONE' : `${title} | FONE`;
+const { currentPage = '' } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -25,36 +18,35 @@ const siteTitle = title === 'Home' ? 'FONE' : `${title} | FONE`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    
+
+    <title>FONE | Foundation of New Earth</title>
+    <meta name="title" content="FONE | Foundation of New Earth" />
+    <meta name="description" content="Building the future for a reunited humanity. Our mission: Remember who we are and build a New Earth based on Respect, Universal Love, and Equity." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.fone.earth/" />
+    <meta property="og:title" content="FONE | Foundation of New Earth" />
+    <meta property="og:description" content="Building the future for a reunited humanity. Respect. Universal Love. Equity." />
+    <meta property="og:image" content="https://www.fone.earth/og-image.jpg" />
+
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://www.fone.earth/" />
+    <meta property="twitter:title" content="FONE | Foundation of New Earth" />
+    <meta property="twitter:description" content="Remember who we are. Build a New Earth." />
+    <meta property="twitter:image" content="https://www.fone.earth/og-image.jpg" />
+
     <!-- SEO Meta Tags -->
     <meta name="robots" content="index, follow" />
     <meta name="author" content="FONE" />
     <link rel="canonical" href={Astro.url.href} />
-    
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content={siteTitle} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:url" content={Astro.url.href} />
-    <meta property="og:site_name" content="FONE" />
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={siteTitle} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    
+
     <!-- Theme Color -->
     <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    
-    <title>{siteTitle}</title>
 
     <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
