@@ -1,12 +1,12 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-import vercel from '@astrojs/vercel/serverless'; // AJOUTE '/serverless' ici
+import vercel from '@astrojs/vercel'; // <--- ENLÈVE le '/serverless' ici
 
 export default defineConfig({
   integrations: [tailwind()],
-  output: 'server', // CHANGE 'static' par 'server'
+  output: 'server', // Garde bien 'server' ici
   adapter: vercel(),
-  site: 'https://fone.earth', // Mets ton vrai domaine ici
+  site: 'https://fone.earth',
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto'
